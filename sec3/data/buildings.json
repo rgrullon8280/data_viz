@@ -1,22 +1,34 @@
 [
-	{
-		"name": "Burj Khalifa",
-		"height": "828"
-	},
-	{
-		"name": "Shanghai Tower",
-		"height": "632"
-	},
-	{
-		"name": "Abraj Al-Bait Clock Tower",
-		"height": "601"
-	},
-	{
-		"name": "Ping An Finance Centre",
-		"height": "555"
-	},
-	{
-		"name": "Lotte World Tower",
-		"height": "555"
-	}
+  {
+    "name": "Burj Khalifa",
+    "height": "828"
+  },
+  {
+    "name": "Shanghai Tower",
+    "height": "632"
+  },
+  {
+    "name": "Abraj Al-Bait Clock Tower",
+    "height": "601"
+  },
+  {
+    "name": "Ping An Finance Centre",
+    "height": "555"
+  },
+  {
+    "name": "Lote World Tower",
+    "height": "588"
+  },
+  {
+    "name": "Lotte Wrld Tower",
+    "height": "565"
+  },
+  {
+    "name": "Lotte World Toer",
+    "height": "575"
+  },
+  {
+    "name": "Lotte orld Tower",
+    "height": "595"
+  }
 ]
