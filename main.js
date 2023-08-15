@@ -20,11 +20,8 @@ d3.json("./sec3/data/buildings.json").then((data) => {
     .paddingInner(0.3)
     .paddingOuter(0.2);
 
-  const MAX_HEIGHT = d3.max(data, (d) => d.height)
-  const y = d3
-    .scaleLinear()
-    .domain([0, MAX_HEIGHT])
-    .range([GROUP_HEIGHT, 0]);
+  const MAX_HEIGHT = d3.max(data, (d) => d.height);
+  const y = d3.scaleLinear().domain([0, MAX_HEIGHT]).range([GROUP_HEIGHT, 0]);
 
   const xAxisCall = d3.axisBottom(x);
   g.append("g")
@@ -36,7 +33,10 @@ d3.json("./sec3/data/buildings.json").then((data) => {
     .attr("x", "-5")
     .attr("text-anchor", "end")
     .attr("transform", "rotate(-30)");
-  const yAxisCall = d3.axisLeft(y);
+  const yAxisCall = d3
+    .axisLeft(y)
+    .ticks(3)
+    .tickFormat((d) => d + "m");
   g.append("g").attr("class", "y axis").call(yAxisCall);
 
   // X Axis Label
@@ -50,13 +50,13 @@ d3.json("./sec3/data/buildings.json").then((data) => {
 
   // Y Axis Label
   g.append("text")
-  .attr("class", "y axis-label")
-  .attr("x",-GROUP_HEIGHT/2)
-  .attr("y", -50)
-  .attr("font-size", "20px")
-  .attr("text-anchor", "middle")
-  .attr("transform", "rotate(-90)")
-  .text("Height")
+    .attr("class", "y axis-label")
+    .attr("x", -GROUP_HEIGHT / 2)
+    .attr("y", -50)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .text("Height");
   const colors = d3
     .scaleOrdinal()
     .domain(data.map((d) => d.name))
@@ -68,9 +68,9 @@ d3.json("./sec3/data/buildings.json").then((data) => {
     .enter()
     .append("rect")
     .attr("x", (d) => x(d.name))
-    .attr("y", (d) => y(MAX_HEIGHT)+y(d.height))
+    .attr("y", (d) => y(d.height))
     .attr("width", x.bandwidth())
-    .attr("height", (d) => GROUP_HEIGHT-y(d.height))
+    .attr("height", (d) => GROUP_HEIGHT - y(d.height))
     .attr("stroke", "black")
     .attr("fill", (d) => colors(d.name));
 });
