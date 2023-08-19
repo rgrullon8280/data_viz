@@ -1,14 +1,28 @@
 #chart-area {
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 #logo {
-	height:50px;
+  height: 50px;
 }
 
 .navbar-brand {
-	height: 60px;
-	padding: 5px 0px;
+  height: 60px;
+  padding: 5px 0px;
+}
+
+.year-label {
+  font-family: "Roboto", sans-serif; /* Roboto is a font often used in Material Design */
+  font-weight: 500; /* Slightly bolder */
+  font-size: 24px;
+  text-anchor: middle;
+  fill: #3f51b5; /* Material blue color */
+
+  /* Material shadow for depth */
+  text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.14), 0px 5px 2px rgba(0, 0, 0, 0.12),
+    0px 2px 6px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Material Design transition */
 }
