@@ -61,7 +61,7 @@ d3.csv("sec3/data/revenues.csv").then((data) => {
   });
   d3.interval(() => {
     flag = !flag;
-    const newData = flag ? data : data.slice(1)
+    const newData = flag ? data : data.slice(1);
     update(newData);
   }, 1000);
   update(data);
@@ -85,28 +85,21 @@ const update = (data) => {
 
   colors.domain(x_values);
 
-  const bars = g.selectAll("rect").data(data, (d) => d.month);
+  const bars = g.selectAll("circle").data(data, (d) => d.month);
 
-  bars
-    .exit()
-    .attr("fill", "red")
-    .transition(t)
-    .attr("height", 0)
-    .attr("y", y(0))
-    .remove();
+  bars.exit().attr("fill", "red").transition(t).attr("cy", y(0)).remove();
 
   bars
     .enter()
-    .append("rect")
+    .append("circle")
     .attr("fill", "grey")
-    .attr("y", y(0))
-    .attr("height", 0)
+    .attr("cy", y(0))
+    .attr("r", 0)
     .merge(bars)
     .transition(t)
-    .attr("x", (d) => x(d.month))
-    .attr("width", x.bandwidth)
-    .attr("y", (d) => y(d[value]))
-    .attr("height", (d) => HEIGHT - y(d[value]));
+    .attr("cx", (d) => x(d.month) + x.bandwidth()/2)
+    .attr("cy", (d) => y(d[value]))
+    .attr("r", 5);
 
   const text = flag ? "Revenue ($)" : "Profit ($)";
   yLabel.transition(t).text(text);
