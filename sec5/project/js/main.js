@@ -4,6 +4,7 @@
  *    Project 2 - Gapminder Clone
  */
 
+
 const AREA_HEIGHT = 400;
 const AREA_WIDTH = 600;
 const MARGIN = { LEFT: 100, TOP: 10, RIGHT: 10, BOTTOM: 100 };
@@ -42,40 +43,49 @@ d3.json("data/data.json").then(function (data) {
     data,
     (d) => d3.max(d.countries, (a) => a.life_exp) + 10
   );
-  xScale.domain([1, 4000]);
+  xScale.domain([1, 40000]);
   yScale.domain([0, y_max]);
-  const xAxisCall = d3.axisBottom(xScale).tickValues([1, 400, 4000]);
+  const xAxisCall = d3.axisBottom(xScale).tickValues([1, 400, 4000, 40000]);
   const yAxisCall = d3.axisLeft(yScale);
   xAxis.call(xAxisCall);
   yAxis.call(yAxisCall);
-  const colorScale = d3
-    .scaleOrdinal()
-    .domain(getCountries(data))
-    .range(d3.schemePastel1);
 
   const r_max = d3.max(data, (d) => d3.max(d.countries, (c) => c.population));
   rScale.domain([0, r_max]);
-
-  i = 40;
+  const countryNames = getCountries(data)
+  i = 200;
   // d3.interval(() => {
   //   update(data[i]);
   //   i += 1;
   // }, 500);
-  update(data[0]);
+  update(data[0], countryNames);
 });
 
-const update = (data) => {
+const update = (data, names) => {
   const countries = data.countries;
   const year = data.year;
-  const circles = d3.selectAll("circle").data(countries, (d) => d.country);
-  console.log(countries);
+  const circles = g.selectAll("circle").data(countries, (d) => d.country);
+  // console.log(countries);
+  const colorScale = d3
+    .scaleOrdinal()
+    .domain(names)
+    .range(d3.schemePastel1);
+
+  console.log(colorScale);
   circles
     .enter()
     .append("circle")
-    .attr("cx", (d) => xScale(d.income))
-    .attr("cy", (d) => yScale(d.life_exp))
-    .attr("r", (d) => rScale(d.population))
-    .attr("fill", "red");
+    .attr("cx", (d) => {
+      // console.log(xScale(d.income))
+      if (isNaN(xScale(d.income))) return 0;
+      return xScale(d.income);
+    })
+    .attr("cy", (d) => {
+      // console.log(yScale(d.life_exp))
+      return yScale(d.life_exp);
+    })
+    .attr("r", (d) => 5)
+    .attr("fill", (d) => colorScale(d.country));
 };
 
 const getCountries = (data) => {
